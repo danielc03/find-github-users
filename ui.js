@@ -31,6 +31,31 @@ class UI {
         <div id="repos"></div>
         `;
     }
+
+    // Show user repos
+    showRepos(repos) {
+        let output = '';
+
+        repos.forEach(repo => {
+            output += `
+            <div class = "card card-body mb-2">
+                <div class ="row">
+                    <div class="col md-6">
+                        <a href="${repo.html_url}" target="_blank">${repo.name} </a>
+                    </div>
+                    <div class="col-md6">
+                        <span class="badge badge-primary">Stars: ${repo.stargazers_count}</span>
+                        <span class="badge badge-dark">Watchers: ${repo.watchers_count}</span>
+                        <span class="badge badge-success">Forks: ${repo.forks_count}</span>
+                    </div>
+                </div>
+            </div>
+            `;
+        });
+
+        // Output repositories
+        document.querySelector('#repos').innerHTML = output;
+    }
     
     // Show alert message
     showAlert(message, className) {
@@ -48,6 +73,11 @@ class UI {
         const search = document.querySelector('.search');
         // Insert alert
         container.insertBefore(div, search);
+
+        // Timeout after 3 seconds
+        setTimeout(() => {
+            this.clearAlert();
+        }, 3000);
     }
 
     // Clear alert message
